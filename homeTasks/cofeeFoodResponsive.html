@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-size:20px;
+        }
+        #app{
+            display: flex;
+        }
+        #first{
+            width: 25vw;
+            background-color: #00754a;
+            height: 100vh;
+            position: relative;
+            height: 705px;
+        }
+        #first div{
+           position: relative;
+           top:30%;
+           left: 20%;
+        }
+
+        #select{
+            width: 150px;
+            height: 40px;
+            background-color: antiquewhite;
+            margin-right:50px;
+        }
+  
+        #show{
+            width: 75vw;
+            margin: 10px;
+            height: 165px;
+            display: flex;
+        }
+        #imgDiv{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #show img{
+            width: 100px;
+            height: 100px;
+        }
+        #textDiv{
+            position: absolute;
+            left: 500px;
+            width:75vw;
+            height: 165px;
+            padding-top:15px ;
+            text-align: center;
+        }
+        
+        #textDiv p{
+            font-size: 1em;
+            margin: 10px;
+        }
+        #buttonType{
+            width: 100px;
+            height: 50px;
+            background-color:aliceblue;
+            margin:10px;
+            border-radius: 18px;
+            font-size: 1em;
+        }
+        .addStyle{
+            border-color: #FA383E;
+        }
+        @media (max-width: 767px) {
+            #app{
+                flex-direction: column;
+            }
+            #first{
+                width: 100%;
+                height: auto;
+            }
+            #first div{
+                text-align: center;
+                left: 0;
+            }
+            #show{
+                width: 100%;
+                height: auto;
+                align-items: flex-start;
+            }
+            #show div{
+                width: 100%;
+            }
+            #show img{
+                width: 80px;
+                height: 80px;
+            }
+            #textDiv {
+                position: static;
+                text-align: center;
+                padding-left: 0;
+            }
+
+            #textDiv h1, #textDiv h3, #textDiv p {
+                text-align: center;
+                font-size: 0.8em;
+            }
+           
+        }
+        @media(max-width : 480px){
+            
+        }
+      
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="first">
+            <div  v-for="element in type">
+                <button id="buttonType" @click="clickShow(element)" :class="element === selected ? 'addStyle' : ''">{{element}}</button>
+            </div>
+        </div>
+        <div>
+            <div id="show" v-for="element in finalArray">
+                    <div id="imgDiv">
+                        <img :src="element.img" alt="Cofee types">
+                    </div>
+                    <div id="textDiv">
+                        <h1>{{element.name}}</h1>
+                        <h3>{{element.size}}</h3>
+                        <p>{{element.calories}}</p>
+                        <p>{{element.description}}</p>
+                    </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        const {createApp} = Vue 
+
+        createApp({
+            data:function(){
+                return{
+                    type:['cofee', 'meal', 'breakfast' ],
+                    selected:'',
+                    finalArray:[],
+                     catagory : {
+                        cofee :[
+                       {
+                           img:'cofee/1.jpeg',
+                           name: 'Chai Tea latte',
+                           size:'Short, Tall, Grande, Venti',
+                           calories:'240 calories included',
+                           description:'This is hot tea, which helps to warm up us in cold days. '
+                       },
+                       {
+                           img:'cofee/2.jpeg',
+                           name: 'Americano',
+                           size:'with a cup',
+                           calories:'15 calories included',
+                           description:'This is hot cofee, which includes water Siganture espresso and shots. '
+                       },
+                       {
+                           img:'cofee/3.jpeg',
+                           name: 'Cappuccino',
+                           size:'Tall, Grande, Venti',
+                           calories:'140 calories included',
+                           description:'This is hot cofee, which is most popular in the world. Remember, ask with milk '
+                       },
+                       {
+                           img:'cofee/4.jpeg',
+                           name: 'Espresso',
+                           size:'Solo, Doppio, Triple, Quad',
+                           calories:'10 calories included',
+                           description:'This is not just cofee, also great drinks when you spend your time with friend during working.'
+                       }
+                   ],
+
+                       meal :[
+                      {
+                           img:'meal/1.jpeg',
+                           name: 'Dolma',
+                           size:'for 1 or 2 person',
+                           description:'This is national azerbaijanian food, which includes meat, rice and vegetable. '
+                       },
+                       {
+                           img:'meal/2.jpeg',
+                           name: 'Plov',
+                           size:'for 4-6 people',
+                           calories:'150 calories included',
+                           description:'This is national azerbaijanian food, which includes rice. You can find any restoran in Baku '
+                       },
+                       {
+                           img:'meal/3.jpeg',
+                           name: 'Kabab',
+                           size:'1 Shish is for 1 person',
+                           calories:'140 calories included',
+                           description:'This is national azerbaijanian food, which includes meat and vegetable. People make that on the burn'
+                       },
+                       {
+                           img:'meal/4.jpeg',
+                           name: 'Piti',
+                           size:'for 1 person ',
+                           calories:'1000 calories included',
+                           description:'This is national azerbaijanian food, which belongs to Sheki. This is great choice in cold days'
+                       }
+                   ],
+                        breakfast :[
+                       {
+                           img:'breakfast/1.jpeg',
+                           name: 'Maple butter',
+                           calories:'240 calories included',
+                           description:'This is breakfast, which includes chicken, maple, butter and egg'
+                       },
+                       {
+                           img:'breakfast/2.jpeg',
+                           name: 'Sausage',
+                           calories:'15 calories included',
+                           description:'This is breakfast, which includes becon sausage. That is not god choise for kids '
+                       },
+                       {
+                           img:'breakfast/3.jpeg',
+                           name: 'Turkey sandwich',
+                           calories:'140 calories included',
+                           description:'This is breakfast, which includes turkey butter and egg. That costs just 5 euro'
+                       },
+                       {
+                           img:'breakfast/4.jpeg',
+                           name: 'Avacado spread',
+                           calories:'90 calories included',
+                           description:'When you want to eat healthy food, this is best meal'
+                       }
+                   ]
+                   }
+                }
+            },
+            methods:{
+                clickShow(category){
+                    this.selected = category
+                    this.finalArray = this.catagory[this.selected]
+
+                }
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>

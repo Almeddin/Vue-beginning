@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mainDIv{
+            height: 100px;
+            width: 100vw;
+        }
+        .backColor1{
+            background-color: green;
+        }
+        .backColor2{
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+            <input type="number" id="input1" v-model="number1">
+            <input type="number" id="input2" v-model="number2">
+            <button id="button" @click="calculateFunction()">Calculate</button>
+            <h1
+                 :class="boolean == false ? 'backColor2' : 'backColor1'"
+                 > {{result}}</h1>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        let { createApp} = Vue 
+
+        createApp({
+            data:function(){
+                return{
+                    number1:'',
+                    number2:'',
+                    result:'',
+                    boolean:'',
+                }
+            },methods:{
+                calculateFunction(){
+                    this.result = this.number1 + '*' + this.number2 + '=' + (this.number1 * this.number2)
+                    if(this.number1 * this.number2 == 0){
+                        this.boolean = false
+                    }else{
+                        this.boolean = true
+                    }
+                }
+            }
+        }).mount("#app")
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <input type="number" id="input" v-model="number">
+        <button id="button" @click="checkValue">Check</button>
+        <h1 id="header">
+            {{result}}
+        </h1>
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        let { createApp } = Vue
+
+
+        createApp({
+            data: function(){
+                return{
+                    number:'',
+                    result:'',
+                    //inputData:'',
+                }
+            },
+            methods:{
+                checkValue(){
+                     if(this.number != 0 & this.number > 0){
+                         if(this.number % 2 == 0 ){
+                             this.result = this.number  +  'is even number'
+                            }else{
+                                this.result = this.number + 'is odd number'
+                            }
+                        }else{
+                            alert('0 or negative number  is  not even or odd number!')
+                            this.number = ''
+                        }
+                    },
+                    
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>

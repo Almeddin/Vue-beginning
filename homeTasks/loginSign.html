@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div id="showHide" v-if="boolean" >
+            <input type="text" id="username" placeholder="username" v-model="username">
+            <input type="password" id="password" placeholder="password" v-model="password">
+            <button @click="loginPage()">login</button>
+            <button  @click="showHide()">
+                Haven't you account?
+            </button>
+            <h1>
+                {{result}}
+            </h1>
+        </div>
+        <div id="sign" v-else="">
+            <input type="username" id="username" placeholder="username" v-model="username">
+            <input type="text" id="eMail" placeholder="E-mail" v-model="eMail">
+            <input type="password" id="password" placeholder="password" v-model="password">
+            <button @click="signUp()">Sign</button>
+            <br>
+            <button @click="showHide()">Back to login page</button>
+            <h1>
+                {{result}}
+            </h1>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        const {createApp} = Vue 
+
+        createApp({
+            data: function(){
+                return{
+                    boolean:true,
+                    username:'',
+                    eMail:'',
+                    password:'',
+                    result:'',
+                    array:[]
+                }
+            },
+            methods:{
+                showHide(){
+                this.boolean = !this.boolean
+                this.username = ''
+                this.password = ''
+                this.eMail = ''
+                this.result = ''
+              },
+              signUp(){
+                const data ={
+                    emailinData: this.eMail,
+                    usernameinData: this.username,
+                    passwordinData:this.password
+                }
+                let booleanSign = true
+                    for(let j = 0; j < this.array.length; j++){
+                        if(this.username === this.array[j].usernameinData || this.eMail === this.array[j].emailinData){
+                                booleanSign = false
+                            break
+                        }
+                    }
+                    if(booleanSign == false){
+                        this.result = 'This e-mail username has already been used. Please, try another one'
+                    }else{
+                        this.array.push(data)
+                        this.result = 'Your sign is succsesfull,back to login page'
+                    }
+                
+                console.log(this.array)
+              },
+              loginPage(){
+             
+                for(let i = 0; i < this.array.length; i++){
+                    if(this.username == this.array[i].usernameinData && this.password == this.array[i].passwordinData){
+                        this.result = 'entry permit granted'
+                        break
+                    }else{
+                        this.result = 'entry permit denied. check your username or password, please'
+                    }
+                }
+              }
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>

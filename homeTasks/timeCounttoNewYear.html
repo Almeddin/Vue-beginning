@@ -1,0 +1,63 @@
+
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #button{
+            width: 100px;
+            height: 40px;
+            background-color: blueviolet;
+            border-radius: 12px;
+        }
+        #buttonDiv{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="app">
+        <div>
+            {{result}}
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const {createApp} = Vue 
+        createApp({
+            data: function(){
+                return{
+                    result:'',
+                    second:'',
+                    minute:'',
+                    hour:'',
+                    day:'',
+
+                }
+            },
+            methods:{
+                count(){
+                    const current = Date.now()
+                    const newYear = new Date('1 January, 2024, 00:00:00').getTime()
+                    const time = newYear - current
+                    this.second = Math.floor(time  /  1000) 
+                    this.minute = Math.floor(this.second / 60)
+                    this.hour = Math.floor(this.minute / 60)
+                    this.day = Math.floor(this.hour / 24)
+                
+                    this.result = this.day + 'day' + (this.hour - (this.day * 24)) + 'hour' + (this.minute - (this.hour * 60)) + 'minute' + (this.second - (this.minute *60)) + 'second'
+                },
+            },
+            mounted(){
+                this.count();
+                setInterval(this.count,1000);
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>

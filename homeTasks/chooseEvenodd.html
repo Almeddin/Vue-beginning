@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <select name="select" id="select" v-model="type">
+            <option  disabled value="choose">Choose number type</option>
+            <option value="even">Even</option>
+            <option value="odd">Odd</option>
+        </select>
+        <button id="button" @click="checkValue">Check</button>
+        <h1 v-for="(element) in result">
+            {{element}}
+        </h1>
+       
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        let { createApp } = Vue 
+
+        createApp({
+            data:function(){
+                return{
+                    array:[12,43,22,68,89,98,91,54,90,37],
+                    type:'',
+                    result:[]
+                }
+            },methods:{ 
+                checkValue(){
+                    this.result = []
+                     for(let i = 0; i < this.array.length; i++){
+                        if(this.type === 'even' && this.array[i] % 2 == 0  || this.type === 'odd' && this.array[i] %2 != 0){
+                        this.result.push(this.array[i])
+                }
+               }
+                }
+            }
+        }).mount("#app")
+    </script>
+</body>
+</html>

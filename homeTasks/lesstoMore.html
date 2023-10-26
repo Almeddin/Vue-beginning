@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="app">
+        <input type="text" id="input" v-model="number">
+        <button id="buttonA" @click="addToArray()">Add</button>
+        <button id="button" @click="check()">Click</button>
+        <h1 v-for="(element) in sortArray">
+            {{element}}
+        </h1>
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+
+        const { createApp } = Vue 
+
+        createApp({
+            data:function(){
+                return{
+                    array:[],
+                    sortArray:[],
+                    number:''
+                }
+            },
+            methods:{
+                addToArray(){
+                    this.array.push(this.number)
+                },
+                check(){
+                    for(let i = 0; i < this.array.length; i++){
+                        let newIndex = 0
+                        for(let j = 0; j < this.array.length; j++){
+                            if(this.array[i] < this.array[j]){
+                                newIndex++
+                            }
+                            console.log(newIndex)
+                        }
+                        this.sortArray[newIndex] = this.array[i]
+                    }
+                    console.log(this.sortArray)
+                }
+            }
+        }).mount("#app")
+
+
+
+
+
+
+        </script>
+</body>
+</html>
+
+
