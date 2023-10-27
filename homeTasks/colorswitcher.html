@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width: 100vh;
+            height: 100%;
+        }
+        #app{
+            width: 100px;
+            height: 100px;
+            
+        }
+        #app div{
+            width: 100vw;
+            height: 500px;
+        }
+        button{
+            width: 100px;
+            height: 50px;
+            border-radius: 12px;
+            border: none;
+            position: absolute;
+            left: 600px;
+            top:200px;
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body >
+<div id="app">
+    <div :style="{'background-color': backgroundColor}">
+        {{backgroundColor}}
+        <button @click="add()">Change color</button>
+
+    </div>
+
+</div>
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script>
+
+    let { createApp } = Vue
+
+    createApp({
+        data: function(){
+            return{
+            backgroundColor:0,
+            }
+            
+        },
+        methods:{
+            add(){
+                const uniq = this.randomNum(100000, 999999)
+                this.backgroundColor = `#${uniq}`
+                console.log(this.backgroundColor)
+                
+            },
+            randomNum(min, max){
+                return Math.floor(Math.random() * (max - min) + min)
+            }
+        }
+    }).mount('#app')
+</script>
+</body>
+</html>
