@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        h1{
+            width: 100vw;
+            height: 60px;
+            display: flex;
+        }
+        h1 button{
+            width: 50px;
+            height: 30px;
+            background-color: gray;
+            margin: 15px 0 0 20px;
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text " id="input">
+        <button id="button" @click="addArray()">Click me</button>
+        <h1 v-for="(element, index) in arr" :style="{'background-color': element.backColor}">
+            {{ element.name }}
+            <button @click="doneButton(element.id)" :data-test="element.id">Done</button>
+            <button @click="xButton(element.id)">X</button>
+        </h1>
+
+    </div>
+
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        let { createApp } = Vue
+
+         createApp({
+            data: function(){
+                return{
+                   arr:[],
+                }
+            },
+            methods:{
+                addArray(){
+                    let head = document.querySelector("h1")
+                    let input = document.querySelector("#input")
+                    const uniq = this.randNumber(1000,9999)
+                    const inputValue  = input.value
+                    const information = {
+                        id: uniq,
+                        name : inputValue,
+                        backColor: 'red'
+                    }
+                  this.arr.push(information)
+                  input.value = ''
+            },
+            randNumber(min, max){
+                return Math.floor(Math.random() * (max- min) + min)
+            },
+            doneButton(special){
+                for(let i = 0; i < this.arr.length; i++){
+                    if(this.arr[i].id == special){
+                        if(this.arr[i].backColor == 'red'){
+                            this.arr[i].backColor = 'green'
+                        }else{
+                            this.arr[i].backColor = 'red'
+                        }
+                    }
+                }
+            },
+            xButton(special){
+                for(let i = 0; i < this.arr.length; i++){
+                    if(this.arr[i].id == special){
+                        this.arr.splice(i, 1)
+                    }
+                }
+            }
+        }
+         }).mount("#app")
+    </script>
+</body>
+</html
